@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Call some PackageManager APIs from React Native",
   "main": "index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
