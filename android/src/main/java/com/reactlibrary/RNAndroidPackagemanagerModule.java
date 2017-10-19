@@ -32,6 +32,8 @@ public class RNAndroidPackagemanagerModule extends ReactContextBaseJavaModule {
       PackageManager pm = this.reactContext.getPackageManager();
       PackageInfo pi = pm.getPackageArchiveInfo(path, 0);
       ApplicationInfo ai = pi.applicationInfo;
+      ai.sourceDir = path;
+      ai.publicSourceDir = path;
 
       String pkg = pi.packageName;
       String label = pm.getApplicationLabel(ai).toString();
