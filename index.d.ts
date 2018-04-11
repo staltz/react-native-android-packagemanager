@@ -5,6 +5,7 @@ export interface PackageInfo {
   versionCode: number;
   firstInstallTime: number;
   lastUpdateTime: number;
+  isSystemApp: boolean;
 }
 
 declare class RNAndroidPackagemanager {
