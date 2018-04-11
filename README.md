@@ -44,6 +44,7 @@ RNAndroidPM.getPackageInfo('/storage/emulated/0/myapp.apk')
         versionCode: 3,
         firstInstallTime: 1185920,
         lastUpdateTime: 1283058,
+        isSystemApp: false
       }
     */
   })

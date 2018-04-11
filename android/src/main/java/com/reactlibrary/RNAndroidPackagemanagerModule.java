@@ -41,6 +41,7 @@ public class RNAndroidPackagemanagerModule extends ReactContextBaseJavaModule {
       int versionCode = pi.versionCode;
       long firstInstallTime = pi.firstInstallTime;
       long lastUpdateTime = pi.lastUpdateTime;
+      boolean isSystemApp = (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
 
       WritableMap info = Arguments.createMap();
       info.putString("package", pkg);
@@ -49,6 +50,7 @@ public class RNAndroidPackagemanagerModule extends ReactContextBaseJavaModule {
       info.putDouble("versionCode", versionCode);
       info.putDouble("firstInstallTime", firstInstallTime);
       info.putDouble("lastUpdateTime", lastUpdateTime);
+      info.putBoolean("isSystemApp", isSystemApp);
 
       promise.resolve(info);
     }
