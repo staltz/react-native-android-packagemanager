@@ -38,22 +38,12 @@ public class RNAndroidPackagemanagerModule extends ReactContextBaseJavaModule {
       ai.sourceDir = path;
       ai.publicSourceDir = path;
 
-      String pkg = pi.packageName;
       String label = pm.getApplicationLabel(ai).toString();
-      String versionName = pi.versionName;
-      int versionCode = pi.versionCode;
-      long firstInstallTime = pi.firstInstallTime;
-      long lastUpdateTime = pi.lastUpdateTime;
 
-      WritableMap info = Arguments.createMap();
-      info.putString("package", pkg);
-      info.putString("label", label);
-      info.putString("versionName", versionName);
-      info.putDouble("versionCode", versionCode);
-      info.putDouble("firstInstallTime", firstInstallTime);
-      info.putDouble("lastUpdateTime", lastUpdateTime);
+      PackageInfoMapping info = new PackageInfoMapping(pi, label);
+      WritableMap map = info.asWritableMap();
 
-      promise.resolve(info);
+      promise.resolve(map);
     }
     catch (Exception ex) {
       ex.printStackTrace();
@@ -79,21 +69,10 @@ public class RNAndroidPackagemanagerModule extends ReactContextBaseJavaModule {
         }
         catch (Exception exc) { }
 
-        String pkg = pi.packageName;
-        String versionName = pi.versionName;
-        int versionCode = pi.versionCode;
-        long firstInstallTime = pi.firstInstallTime;
-        long lastUpdateTime = pi.lastUpdateTime;
+        PackageInfoMapping info = new PackageInfoMapping(pi, label);
+        WritableMap map = info.asWritableMap();
 
-        WritableMap info = Arguments.createMap();
-        info.putString("package", pkg);
-        info.putString("label", label);
-        info.putString("versionName", versionName);
-        info.putDouble("versionCode", versionCode);
-        info.putDouble("firstInstallTime", firstInstallTime);
-        info.putDouble("lastUpdateTime", lastUpdateTime);
-
-        array.pushMap(info);
+        array.pushMap(map);
       }
 
       promise.resolve(array);
