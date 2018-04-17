@@ -44,6 +44,7 @@ RNAndroidPM.getPackageInfo('/storage/emulated/0/myapp.apk')
         versionCode: 3,
         firstInstallTime: 1185920,
         lastUpdateTime: 1283058,
+        isSystemApp: false
       }
     */
   });
@@ -60,6 +61,7 @@ RNAndroidPM.getInstalledPackages()
           versionCode: 3,
           firstInstallTime: 1185920,
           lastUpdateTime: 1283058,
+          isSystemApp: false
         },
         {
           package: "com.example.anotherapp",
@@ -68,6 +70,7 @@ RNAndroidPM.getInstalledPackages()
           versionCode: 1,
           firstInstallTime: 1185920,
           lastUpdateTime: 1283058,
+          isSystemApp: false
         }
       ]
     */

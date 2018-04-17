@@ -30,6 +30,7 @@ public class PackageInfoMapping {
     map.putDouble("versionCode", this.packageInfo.versionCode);
     map.putDouble("firstInstallTime", this.packageInfo.firstInstallTime);
     map.putDouble("lastUpdateTime", this.packageInfo.lastUpdateTime);
+    map.putBoolean("isSystemApp", (this.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
 
     return map;
   }
