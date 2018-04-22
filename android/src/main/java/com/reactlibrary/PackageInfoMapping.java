@@ -27,7 +27,7 @@ public class PackageInfoMapping {
 
     map.putString("package", this.packageInfo.packageName);
     map.putString("versionName", this.packageInfo.versionName);
-    map.putDouble("versionCode", this.packageInfo.versionCode);
+    map.putInt("versionCode", this.packageInfo.versionCode);
     map.putDouble("firstInstallTime", this.packageInfo.firstInstallTime);
     map.putDouble("lastUpdateTime", this.packageInfo.lastUpdateTime);
     map.putBoolean("isSystemApp", (this.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
