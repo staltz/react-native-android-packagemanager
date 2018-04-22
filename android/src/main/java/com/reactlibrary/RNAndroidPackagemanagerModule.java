@@ -1,4 +1,3 @@
-
 package com.reactlibrary;
 
 import android.content.pm.PackageInfo;
@@ -34,7 +33,7 @@ public class RNAndroidPackagemanagerModule extends ReactContextBaseJavaModule {
       PackageManager pm = this.reactContext.getPackageManager();
       PackageInfo pi = pm.getPackageArchiveInfo(path, 0);
 
-      PackageInfoMapping info = new PackageInfoMapping(pi, pm);
+      PackageInfoMapping info = new PackageInfoMapping.Builder(pi, pm).withLabel(true).build();
       WritableMap map = info.asWritableMap();
 
       promise.resolve(map);
@@ -54,7 +53,7 @@ public class RNAndroidPackagemanagerModule extends ReactContextBaseJavaModule {
       List<PackageInfo> packages = pm.getInstalledPackages(0);
       for (PackageInfo pi : packages)
       {
-        PackageInfoMapping info = new PackageInfoMapping(pi, pm);
+        PackageInfoMapping info = new PackageInfoMapping.Builder(pi, pm).withLabel(true).build();
         WritableMap map = info.asWritableMap();
 
         array.pushMap(map);
