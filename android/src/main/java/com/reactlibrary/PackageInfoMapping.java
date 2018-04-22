@@ -14,9 +14,9 @@ public class PackageInfoMapping {
   private ApplicationInfo applicationInfo;
 
   public PackageInfoMapping(PackageInfo packageInfo, PackageManager packageManager) {
-      this.packageInfo = packageInfo;
-      this.packageManager = packageManager;
-      this.applicationInfo = packageInfo.applicationInfo;
+    this.packageInfo = packageInfo;
+    this.packageManager = packageManager;
+    this.applicationInfo = packageInfo.applicationInfo;
   }
 
   public WritableMap asWritableMap() {
@@ -36,12 +36,13 @@ public class PackageInfoMapping {
   }
 
   private String loadPackageLabel() {
-    String label = this.applicationInfo.packageName;
-    try
-    {
-        label = this.applicationInfo.loadLabel(this.packageManager).toString();
+    String label;
+    try {
+      label = this.applicationInfo.loadLabel(this.packageManager).toString();
     }
-    catch (Exception exc) { }
+    catch (Exception exc) {
+      label = this.applicationInfo.packageName;
+    }
     return label;
   }
 }
