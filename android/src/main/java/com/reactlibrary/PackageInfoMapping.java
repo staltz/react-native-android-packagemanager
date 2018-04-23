@@ -9,40 +9,67 @@ import com.facebook.react.bridge.WritableMap;
 
 public class PackageInfoMapping {
 
-  private PackageInfo packageInfo;
-  private PackageManager packageManager;
-  private ApplicationInfo applicationInfo;
+  private String packageName;
+  private String label;
+  private String versionName;
+  private int versionCode;
+  private long firstInstallTime;
+  private long lastUpdateTime;
 
-  public PackageInfoMapping(PackageInfo packageInfo, PackageManager packageManager) {
-    this.packageInfo = packageInfo;
-    this.packageManager = packageManager;
-    this.applicationInfo = packageInfo.applicationInfo;
+  private PackageInfoMapping(PackageInfo packageInfo, String label) {
+    this.label = label;
+    this.packageName = packageInfo.packageName;
+    this.versionName = packageInfo.versionName;
+    this.versionCode = packageInfo.versionCode;
+    this.firstInstallTime = packageInfo.firstInstallTime;
+    this.lastUpdateTime = packageInfo.lastUpdateTime;
   }
 
   public WritableMap asWritableMap() {
     WritableMap map = Arguments.createMap();
 
-    String label = loadPackageLabel();
-    map.putString("label", label);
-
-    map.putString("package", this.packageInfo.packageName);
-    map.putString("versionName", this.packageInfo.versionName);
-    map.putInt("versionCode", this.packageInfo.versionCode);
-    map.putDouble("firstInstallTime", this.packageInfo.firstInstallTime);
-    map.putDouble("lastUpdateTime", this.packageInfo.lastUpdateTime);
-    map.putBoolean("isSystemApp", (this.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
+    map.putString("label", this.label);
+    map.putString("package", this.packageName);
+    map.putString("versionName", this.versionName);
+    map.putInt("versionCode", this.versionCode);
+    map.putDouble("firstInstallTime", this.firstInstallTime);
+    map.putDouble("lastUpdateTime", this.lastUpdateTime);
 
     return map;
   }
 
-  private String loadPackageLabel() {
-    String label;
-    try {
-      label = this.applicationInfo.loadLabel(this.packageManager).toString();
+  public static class Builder {
+
+    private boolean loadLabel;
+    private PackageInfo packageInfo;
+    private PackageManager packageManager;
+    private ApplicationInfo applicationInfo;
+
+    public Builder(PackageInfo packageInfo, PackageManager packageManager) {
+      this.packageInfo = packageInfo;
+      this.packageManager = packageManager;
+      this.applicationInfo = packageInfo.applicationInfo;
     }
-    catch (Exception exc) {
-      label = this.applicationInfo.packageName;
+
+    public Builder withLabel(boolean loadLabel) {
+      this.loadLabel = loadLabel;
+      return this;
     }
-    return label;
+
+    public PackageInfoMapping build() {
+      String label = this.loadLabel ? this.loadPackageLabel() : null;
+      return new PackageInfoMapping(this.packageInfo, label);
+    }
+
+    private String loadPackageLabel() {
+      String label;
+      try {
+        label = this.applicationInfo.loadLabel(this.packageManager).toString();
+      }
+      catch (Exception exc) {
+        label = this.applicationInfo.packageName;
+      }
+      return label;
+    }
   }
 }

@@ -49,7 +49,7 @@ RNAndroidPM.getPackageInfo('/storage/emulated/0/myapp.apk')
     */
   });
 
-RNAndroidPM.getInstalledPackages()
+RNAndroidPM.getInstalledPackages({})
   .then(packages => {
     console.log(packages);
     /*
