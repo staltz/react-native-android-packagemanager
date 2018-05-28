@@ -15,14 +15,16 @@ public class PackageInfoMapping {
   private int versionCode;
   private long firstInstallTime;
   private long lastUpdateTime;
+  private boolean isSystemApp;
 
-  private PackageInfoMapping(PackageInfo packageInfo, String label) {
+  private PackageInfoMapping(PackageInfo packageInfo, ApplicationInfo applicationInfo, String label) {
     this.label = label;
     this.packageName = packageInfo.packageName;
     this.versionName = packageInfo.versionName;
     this.versionCode = packageInfo.versionCode;
     this.firstInstallTime = packageInfo.firstInstallTime;
     this.lastUpdateTime = packageInfo.lastUpdateTime;
+    this.isSystemApp = (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
   }
 
   public WritableMap asWritableMap() {
@@ -34,6 +36,7 @@ public class PackageInfoMapping {
     map.putInt("versionCode", this.versionCode);
     map.putDouble("firstInstallTime", this.firstInstallTime);
     map.putDouble("lastUpdateTime", this.lastUpdateTime);
+    map.putBoolean("isSystemApp", this.isSystemApp);
 
     return map;
   }
@@ -58,7 +61,7 @@ public class PackageInfoMapping {
 
     public PackageInfoMapping build() {
       String label = this.loadLabel ? this.loadPackageLabel() : null;
-      return new PackageInfoMapping(this.packageInfo, label);
+      return new PackageInfoMapping(this.packageInfo, this.applicationInfo, label);
     }
 
     private String loadPackageLabel() {
